@@ -1,158 +1,259 @@
-Feature: Test Add Cabin Feature
+Feature: Login
 
-  # ADD_CABIN01_SAMPLE_DATA
-  Scenario: Validate with correct credentials
-    Given Open browser and locate loginpage
-    When User enter credentials
-      | login03_positive_correct_data |
-    And Click on Login button
-    Then Login should successfull
+# 
+  Scenario: User login with valid credentials
+    Given a User is on login page and has valid <login_name> and <password>
+    When a
+    Then User should be redirected to Dashboard page
 
-  # ADD_CABIN02_NEGETIVE_DAYS
-  Scenario: New tables will add with following credentials with no additional tables
-    Given Dashboard page
-    When Click on KAM Master page
-    And Navigate to Add Cabin/Table page
-    And Cabin ID is selected
-      | add_cabin01_new_cabin_with_simple_data |
-    And Cabin name is generated
-      | add_cabin01_new_cabin_with_simple_data |
-    And Select time slot
-      | add_cabin01_new_cabin_with_simple_data |
-    And Select Time Interval
-      | add_cabin01_new_cabin_with_simple_data |
-    And Fill Future booking and comments
-      | add_cabin01_new_cabin_with_simple_data |
-    And Change status
-    And Add Table Name
-      | add_cabin01_new_cabin_with_simple_data |
-    And Selecting KAM Master masterFlag
-      | add_cabin01_new_cabin_with_simple_data |
-    And For each table tableName there is one master
-      | add_cabin01_new_cabin_with_simple_data |
-    And Working days days will be daysFlag
-      | add_cabin01_new_cabin_with_simple_data |
-    And Click on submit and verify message
-    Then Message will be displayed as successMessage
-      | add_cabin01_new_cabin_with_simple_data |
+  
+      | login_name    | password      |
+      | janki.gadhiya | janki.gadhiya |
 
-  # ADD_CABIN03_CHARACTER_DAYS
-  Scenario: User is not able to enter negetive days
-    Given Add Cabin/Table page opened
-    When Cabin ID is selected
-      | add_cabin02_data_with_negetive_days |
-    And Cabin name is generated
-      | add_cabin02_data_with_negetive_days |
-    And Select time slot
-      | add_cabin02_data_with_negetive_days |
-    And Select Time Interval
-      | add_cabin02_data_with_negetive_days |
-    And Fill Future booking and comments
-      | add_cabin02_data_with_negetive_days |
-    Then User is not able to enter negetive numbers
-      | add_cabin02_data_with_negetive_days |
+  # AddStoneToBasketFromPagePositiveTestCase01
+  Scenario: Add Stone to Basket
+    Given a User on dashboard page
+    When User clicks on Search Icon
+    And User is redirected to search page
+    And User enter carat values <From Value> <To Value>
+    And User clicks on carat add symbol
+    And User selects diamond shape as cushion
+    And clicks on Search
+    And User in Search Result
+    And User selects a Stone
+    And User clicks on navigation right
+    And User click Add to Basket
+    Then Message display Stone added to My Basket successfully
 
-  # ADD_CABIN04_WITH_TABLE
-  Scenario: User cannot able to enter character as a day
-    Given Add Cabin/Table page opened
-    When Cabin ID is selected
-      | add_cabin03_data_with_char_days |
-    And Cabin name is generated
-      | add_cabin03_data_with_char_days |
-    And Select time slot
-      | add_cabin03_data_with_char_days |
-    And Select Time Interval
-      | add_cabin03_data_with_char_days |
-    And Fill Future booking and comments
-      | add_cabin03_data_with_char_days |
-    Then User is not able to enter negetive numbers
-      | add_cabin03_data_with_char_days |
+  
+      | From Value |  | To Value |
+      |          1 |  |        2 |
 
-  # ADD_CABIN05_DELETING_CABIN
-  Scenario: New tables will add with following credentials with addtional tables
-    Given Add Cabin/Table page opened
-    And Cabin ID is selected
-      | add_cabin04_data_with_table |
-    And Cabin name is generated
-      | add_cabin04_data_with_table |
-    And Select time slot
-      | add_cabin04_data_with_table |
-    And Select Time Interval
-      | add_cabin04_data_with_table |
-    And Fill Future booking and comments
-      | add_cabin04_data_with_table |
-    And Change status
-    And Tables incremented from tables
-      | add_cabin04_data_with_table |
-    And Add Tables Name
-      | add_cabin04_data_with_table |
-    And Selecting KAM Master masterFlag
-      | add_cabin04_data_with_table |
-    And For each table tableName there is one master
-      | add_cabin04_data_with_table |
-    And Working days days will be daysFlag
-      | add_cabin04_data_with_table |
-    And Click on submit and verify message
-    Then Message will be displayed as successMessage
-      | add_cabin04_data_with_table |
+  # ApplyDDCOnBasketPagePositiveTestcase02
+  Scenario: Apply DDC
+    Given a User in Search Result Page
+    When User clicks on Basket icon
+    Then User is redirected to My Basket page
+    And User clicks on navigation right
+    And User Selects a pink legend stone on Basket page
+    And User Click Apply DDC
+    And User selects time
+    And User Click Apply
+    And Message displayed Successfully stone added/updated to DDC list
+    And User Checks DDC icon turned green
+    And User Clicks DDC icon
+    And User see pop up menu for DDC
+    And User Checks the DDC time for the selected stone
+    And User Clicks on cross button
 
-  # ADD_CABIN06_WITH_WORKING_HOURS
-  Scenario: Deleting Cabin
-    Given Add Cabin/Table page opened
-    When Cabin ID is selected
-      | add_cabin05_deleting_cabin |
-    And Click on Delete button
-    Then Cabin should be removed and varify the message
-      | add_cabin05_deleting_cabin |
+  # UpdateDDCPositiveTestCase03
+  Scenario: Update DDC
+  Given a
+    When User clicks on Basket icon
+    Then User is redirected to My Basket page
+    And User clicks on navigation right
+    And User click DDC icon for stone on Basket page
+    And User Select different time
+    And User Click update
+    And Message displayed Successfully stone added/updated to DDC list
 
-  # ADD_CABIN07_WITHOUT_CABIN_NAME
-  Scenario: New tables will add with following credentials with addtional tables, assignee and working days
-    Given Add Cabin/Table page opened
-    And Cabin ID is selected
-      | add_cabin06_data_with_working_days |
-    And Cabin name is generated
-      | add_cabin06_data_with_working_days |
-    And Select time slot
-      | add_cabin06_data_with_working_days |
-    And Select Time Interval
-      | add_cabin06_data_with_working_days |
-    And Fill Future booking and comments
-      | add_cabin06_data_with_working_days |
-    And Change status
-    And Tables incremented from tables
-      | add_cabin06_data_with_working_days |
-    And Add Tables Name
-      | add_cabin06_data_with_working_days |
-    And Selecting KAM Master masterFlag
-      | add_cabin06_data_with_working_days |
-    And For each table tableName there is one master
-      | add_cabin06_data_with_working_days |
-    And Working days days will be daysFlag and change on working hours if there
-      | add_cabin06_data_with_working_days |
-    And Click on submit and verify message
-    Then Message will be displayed as successMessage
-      | add_cabin06_data_with_working_days |
+  # RemoveDDCPositiveTestCase04
+  Scenario: Remove DDC
+  Given a
+    When User click DDC icon for stone on Basket page
+    And User Click Remove
+    Then Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
 
-  # ADD_CABIN08_WITHOUT_TIME_SLOT_INTERVAL
-  Scenario: Add Cabin/Table without Required field as Cabin Name
-    Given Add Cabin/Table page opened
-    And Cabin ID is selected
-      | add_cabin07_without_cabin_name |
-    And Click on submit and verify message
-    Then Message will be displayed as successMessage
-      | add_cabin07_without_cabin_name |
+  # ApplyDDCByClickingDDCIconPositiveTestCase05
+  Scenario: Apply DDC by clicking on DDC icon
+    Given a User in Basket Page
+    When User click DDC Icon to apply DDC
+    And User selects time
+    And User Click Apply
+    Then Message displayed Successfully stone added/updated to DDC list
+    And User Checks DDC icon turned green
 
-  # ADD_CABIN08_WITHOUT_TABLE_NAMES
-  Scenario: Add Cabin/Table without Required field as Time Slot/Interval
-    Given Add Cabin/Table page opened
-    And Cabin ID is selected
-      | add_cabin08_without_time_slot_interval |
-    And Cabin name is generated
-      | add_cabin08_without_time_slot_interval |
-    And Select time slot
-      | add_cabin08_without_time_slot_interval |
-    And Select Time Interval
-      | add_cabin08_without_time_slot_interval |
-    And Click on submit and verify message
-    Then Message will be displayed as successMessage
-      | add_cabin08_without_time_slot_interval |
+  # UpdateDDCPositiveTestCase06
+  Scenario: Update DDC
+  Given a
+    When User click DDC icon for stone on Basket page
+    And User Select different time
+    And User Click update
+    Then Message displayed Successfully stone added/updated to DDC list
+    When User Clicks DDC icon
+    And User see pop up menu for DDC
+    And User Checks the DDC time for the selected stone
+    And User Clicks on cross button
+
+  # RemoveDDCPositiveTestCase07
+  Scenario: Remove DDC
+  Given a
+    When User click DDC icon for stone on Basket page
+    And User Click Remove
+    Then Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
+
+  # ApplyDDCIconPositiveTestCase08
+  Scenario: Apply DDC by selecting a stone
+    Given a User in Basket Page
+    When User Click packet icon
+    Then User is redirected to Packet page
+    And User select packet name as ddc_packet
+    And User clicks on navigation right
+    And User Selects a pink legend stone on Packet Page
+    And User Click Apply DDC
+    And User selects time
+    And User Click Apply
+    And Message displayed Successfully stone added/updated to DDC list
+    And User Checks DDC icon turned green
+    And User Clicks DDC icon
+    And User is redirected to DDC Page
+    And User Checks the DDC time for the selected stone
+    And User Clicks on cross button
+
+  # UpdateDDCPositiveTestCase09
+  Scenario: Update DDC
+  Given a
+    When User click DDC icon for stone on Packet page
+    And User Select different time
+    And User Click update
+    Then Message displayed Successfully stone added/updated to DDC list
+
+  # RemoveDDCPositiveTestCase10
+  Scenario: Remove DDC
+  Given a
+    When User click DDC icon for stone on Packet page
+    And User Click Remove
+    Then Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
+
+  # ApplyDDCOnPacketPagePositiveTestCase11
+  Scenario: Apply DDC by clicking on DDC icon
+    Given a User in Packet page
+    When User click DDC Icon to apply DDC
+    And User selects time
+    And User Click Apply
+    And Message displayed Successfully stone added/updated to DDC list
+    And User Checks DDC icon turned green
+
+  # UpdateDDCPacketPagePositiveTestCase12
+  Scenario: Update DDC
+  Given a
+    When User click DDC icon for stone on Packet page
+    And User Select different time
+    And User Click update
+    Then Message displayed Successfully stone added/updated to DDC list
+    And User Clicks DDC icon
+    And User is redirected to DDC Page
+    And User Checks the DDC time for the selected stone
+
+  # RemoveDDCPacketPagePositiveTestCase13
+  Scenario: Remove DDC
+  Given a
+    When User Click on packet Icon
+    Then User select packet name as ddc_packet
+    And User clicks on navigation right
+    And User click DDC icon for stone on Packet page
+    And User Click Remove
+    And Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
+
+  # ApplyDDCOnSearchPagePositiveTestCase14
+  Scenario: Apply DDC by selecting a stone
+    Given a User in Packet Page
+    When User clicks on Search Icon
+    Then User is redirected to search page
+    And User enter carat values <From Value> <To Value>
+    And User clicks on carat add symbol
+    And User selects diamond shape as round
+    And clicks on Search
+    And User in Search Result
+    And User selects a Stone
+    And User Click Apply DDC
+    And User selects time
+    And User Click Apply
+    And Message displayed Successfully stone added/updated to DDC list
+    And User clicks on navigation right
+    And User Checks DDC icon turned green
+    And User Clicks DDC icon
+    And User see pop up menu for DDC
+    And User Checks the DDC time for the selected stone
+    And User Clicks on cross button
+
+  
+      | From Value |  | To Value |
+      |          1 |  |        2 |
+
+  # UpdateDDCOnSearchResultPagePositiveTestCase15
+  Scenario: Update DDC
+  Given a
+    When User click DDC icon for stone on Search page
+    And User Select different time
+    And User Click update
+    Then Message displayed Successfully stone added/updated to DDC list
+
+  # RemoveDDCOnSearchResultPagePositiveTestCase16
+  Scenario: Remove DDC
+  Given a
+    When User click DDC icon for stone on Search page
+    And User Click Remove
+    Then Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
+
+  # Search page Apply DDC by clicking DDC icon# 
+  Scenario: Apply DDC by clicking on DDC icon
+  Given a
+    When User Click Dashboard Icon
+    And User in dashboard page
+    And User clicks on Search Icon
+    Then User is redirected to search page
+    And User enter carat values <From Value> <To Value>
+    And User clicks on carat add symbol
+    And User selects diamond shape as round
+    And clicks on Search
+    And User in Search Result
+    And User clicks on navigation right
+    And User click DDC Icon to apply DDC
+    And User selects time
+    And User Click Apply
+    And Message displayed Successfully stone added/updated to DDC list
+    And User Checks DDC icon turned green
+
+  
+      | From Value |  | To Value |
+      |          1 |  |        2 |
+# 
+  Scenario: Update DDC
+  Given a
+    When User click DDC icon for stone on Search page
+    And User Select different time
+    And User Click update
+    Then Message displayed Successfully stone added/updated to DDC list
+    And User Clicks DDC icon
+    And User is redirected to DDC Page
+    And User Checks the DDC time for the selected stone
+# 
+  Scenario: Remove DDC
+  Given a
+    When User clicks on Search Icon
+    Then User is redirected to search page
+    And User enter carat values <From Value> <To Value>
+    And User clicks on carat add symbol
+    And User selects diamond shape as round
+    And clicks on Search
+    And User in Search Result
+    And User clicks on navigation right
+    And User click DDC icon for stone on Search page
+    And User Click Remove
+    And Message display successfully stone removed from the DDC stone list
+    And User Check that DDC Icon Turns from Green to Grey
+
+  
+      | From Value |  | To Value |
+      |          1 |  |        2 |
+# 
+  Scenario: Log out user at the end of test
+  Given a
+    When User clicks on log out icon and agrees to prompt
+    Then User should be redirected to login page

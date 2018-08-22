@@ -28,6 +28,8 @@ public class ExtractData {
 				}
 				brOutput.write(", " + " \n");
 			} else if (line.contains("#")) {
+				brOutput.write(ands);
+				ands="";
 				for (String text : data) {
 					if (!text.contains("#"))
 						brOutput.write(text + " ");
@@ -73,6 +75,7 @@ public class ExtractData {
 
 				brOutput.write(", \n");
 				brOutput.write(ands);
+				ands="";
 			}
 
 		}
