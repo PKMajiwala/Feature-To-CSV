@@ -17,8 +17,6 @@ public class ExtractData {
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(PATH_TO_FEATURE));
 		BufferedWriter brOutput = new BufferedWriter(new FileWriter(PATH_TO_CSV));
-//		HashMap<String, String[]> outputData = new HashMap<>();
-//		String ands = "";
 		String line = new String();
 		String[] feature = new String[100];
 		String[] scenario = new String[100];
@@ -38,45 +36,48 @@ public class ExtractData {
 			if (line.contains("# ")) {
 				flag = 0;
 				scenarioid[++i] += line.replace("# ", "") + "\n";
-				System.out.println("Comment");
+				System.out.println("Comment"+line);
 			}
 			if (line.contains("Scenario: ")) {
-				scenario[i] += line.replace("Scenario: ", "") + "\n";
-				System.out.println("scenario");
+				scenario[i] += line.replace(",", "-").replace("Scenario: ", "") + "\n";
+				System.out.println("scenario"+line);
 			}
 			if (line.contains("Scenario Outline: ")) {
-				scenario[i] += line.replace("Scenario Outline: ", "") + "\n";
-				System.out.println("Scenario Outline");
+				scenario[i] += line.replace(",", "-").replace("Scenario Outline: ", "") + "\n";
+				System.out.println("Scenario Outline"+line);
 			}
 			if (line.contains("Given ")) {
-				given[i] += line + "\n";
-				System.out.println("Given");
+				given[i] += line.replace(",", "-") + "\n";
+				System.out.println("Given"+line.replace(",", "-"));
 			}
 			if (line.contains("When ")) {
-				when[i] += line + "\n";
-				System.out.println("When");
+				when[i] += line.replace(",", "-") + "\n";
+				System.out.println("When"+line.replace(",", "-"));
 			}
 			if (line.contains("And ")) {
 				if (flag == 1) {
-					then[i] += line += "\n";
+					then[i] += line.replace(",", "-") + "\n";
 				} else {
-					when[i] += line + "\n";
+					when[i] += line.replace(",", "-") + "\n";
 				}
-				System.out.println("And");
+				System.out.println("And"+line);
 			}
 			if (line.contains("Then ")) {
-				then[i] += line + "\n";
-				System.out.println("Then");
+				then[i] += line.replace(",", "-") + "\n";
+				System.out.println("Then"+line);
 				flag = 1;
 			}
 		}
 		for (int j = 0; j <= i; j++) {
-			brOutput.write(scenarioid[j].trim().replace("null", "") + ",");
+			try {
+			brOutput.write("\n"+scenarioid[j].trim().replace("null", "") + ",");
 			brOutput.write(scenario[j].trim().replace("null", "") + ",");
 			brOutput.write(given[j].trim().replace("null", "") + ",");
 			brOutput.write(when[j].trim().replace("null", "").replace("\n", "\n,,,") + ",");
-//			brOutput.write(and[j].trim().replace("null", "") + ",");
 			brOutput.write(then[j].trim().replace("null", "").replace("\n", "\n,,,,") + ",\n");
+			}catch(Exception e) {
+				continue;
+			}
 
 		}
 		br.close();
