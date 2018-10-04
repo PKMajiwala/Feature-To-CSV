@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ExtractData {
 
@@ -14,72 +17,68 @@ public class ExtractData {
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(PATH_TO_FEATURE));
 		BufferedWriter brOutput = new BufferedWriter(new FileWriter(PATH_TO_CSV));
-		String ands = "";
-
+//		HashMap<String, String[]> outputData = new HashMap<>();
+//		String ands = "";
 		String line = new String();
+		String[] feature = new String[100];
+		String[] scenario = new String[100];
+		String[] scenarioid = new String[100];
+		String[] given = new String[100];
+		String[] when = new String[100];
+		String[] then = new String[100];
+		int flag = 0;
+
 		brOutput.write("Scenario ID, Scenario, Given, When, Then\n");
+		int i = -1;
 		while ((line = br.readLine()) != null) {
-			String data[] = line.split(" ");
-			StringBuilder Ands = new StringBuilder(100);
-			if (line.contains("Feature:")) {
-				for (String text : data) {
-					if (!text.contains("Feature:"))
-						brOutput.write(text);
-				}
-				brOutput.write(", " + " \n");
-			} else if (line.contains("#")) {
-				brOutput.write(ands);
-				ands="";
-				for (String text : data) {
-					if (!text.contains("#"))
-						brOutput.write(text + " ");
-				}
-				brOutput.write(", ");
-			} else if (line.contains("Scenario:")) {
-				for (String text : data) {
-					if (!text.contains("Scenario:"))
-						brOutput.write(text + " ");
-				}
-				brOutput.write(", ");
-			} else if (line.contains("Scenario Outline:")) {
-				for (String text : data) {
-					if (!text.contains("Scenario Outline:"))
-						brOutput.write(text + " ");
-				}
-				brOutput.write(", ");
-			} else if (line.contains("Given")) {
-				for (String text : data) {
-
-					brOutput.write(text + " ");
-				}
-				brOutput.write(", ");
-			} else if (line.contains("When")) {
-				for (String text : data) {
-
-					brOutput.write(text + " ");
-				}
-				brOutput.write(", ");
-			} else if (line.contains("And")) {
-				Ands.append(", , , ");
-				for (String text : data) {
-
-					Ands.append(text + " ");
-				}
-				Ands.append(", \n");
-				ands += Ands.toString();
-			} else if (line.contains("Then")) {
-				for (String text : data) {
-
-					brOutput.write(text + " ");
-				}
-
-				brOutput.write(", \n");
-				brOutput.write(ands);
-				ands="";
+			if (line.contains("Feature: ")) {
+				feature[0] += line.replace("Feature:", "") + "\n";
+				System.out.println("Feature");
 			}
+			if (line.contains("# ")) {
+				flag = 0;
+				scenarioid[++i] += line.replace("# ", "") + "\n";
+				System.out.println("Comment");
+			}
+			if (line.contains("Scenario: ")) {
+				scenario[i] += line.replace("Scenario: ", "") + "\n";
+				System.out.println("scenario");
+			}
+			if (line.contains("Scenario Outline: ")) {
+				scenario[i] += line.replace("Scenario Outline: ", "") + "\n";
+				System.out.println("Scenario Outline");
+			}
+			if (line.contains("Given ")) {
+				given[i] += line + "\n";
+				System.out.println("Given");
+			}
+			if (line.contains("When ")) {
+				when[i] += line + "\n";
+				System.out.println("When");
+			}
+			if (line.contains("And ")) {
+				if (flag == 1) {
+					then[i] += line += "\n";
+				} else {
+					when[i] += line + "\n";
+				}
+				System.out.println("And");
+			}
+			if (line.contains("Then ")) {
+				then[i] += line + "\n";
+				System.out.println("Then");
+				flag = 1;
+			}
+		}
+		for (int j = 0; j <= i; j++) {
+			brOutput.write(scenarioid[j].trim().replace("null", "") + ",");
+			brOutput.write(scenario[j].trim().replace("null", "") + ",");
+			brOutput.write(given[j].trim().replace("null", "") + ",");
+			brOutput.write(when[j].trim().replace("null", "").replace("\n", "\n,,,") + ",");
+//			brOutput.write(and[j].trim().replace("null", "") + ",");
+			brOutput.write(then[j].trim().replace("null", "").replace("\n", "\n,,,,") + ",\n");
 
 		}
-
 		br.close();
 		brOutput.close();
 	}

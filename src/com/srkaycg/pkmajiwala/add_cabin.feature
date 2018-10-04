@@ -1,259 +1,75 @@
-Feature: Login
+Feature: Registration
 
-# 
-  Scenario: User login with valid credentials
-    Given a User is on login page and has valid <login_name> and <password>
-    When a
-    Then User should be redirected to Dashboard page
+  # RegistrationPositiveTestCase01
+  Scenario Outline: Form fill up
+    Given User click Register Now
+    When User in registration page
+    And User enters company name <scenario_id>
+    And User enters contact_person <scenario_id>
+    And User enters E-mail Id <scenario_id>
+    And User enters Login Name <scenario_id>
+    And User enters mobile_num <scenario_id>
+    And User selects company country <scenario_id>
+    And User selects company state <scenario_id>
+    And User selects company City <scenario_id>
+    And User enters company zip <scenario_id>
+    And user enters company street <scenario_id>
+    And User enters Third party name <scenario_id>
+    And User enters Third party email <scenario_id>
+    And User Selects third_party_country <scenario_id>
+    And User Selects Third_party_state <scenario_id>
+    And User Selects Third_party_city <scenario_id>
+    And User enters Third_party_Zip <scenario_id>
+    And User enters Third_party_street <scenario_id>
+    And User uploads a Identity proof photo <scenario_id>
+    And User agrees terms and condition
+    And User agrees Promotional letters
+    And User clicks on submit
+    Then User should be directed to registration success page
 
-  
-      | login_name    | password      |
-      | janki.gadhiya | janki.gadhiya |
+    Examples: 
+      | scenario_id            |
+      | registration01_success |
 
-  # AddStoneToBasketFromPagePositiveTestCase01
-  Scenario: Add Stone to Basket
-    Given a User on dashboard page
-    When User clicks on Search Icon
-    And User is redirected to search page
-    And User enter carat values <From Value> <To Value>
-    And User clicks on carat add symbol
-    And User selects diamond shape as cushion
-    And clicks on Search
-    And User in Search Result
-    And User selects a Stone
-    And User clicks on navigation right
-    And User click Add to Basket
-    Then Message display Stone added to My Basket successfully
+  # RegistrationNegativeValidationsTestCase02
+  Scenario Outline: Validate All fields
+    Given User click Register Now
+    When User in registration page
+    And User enters company name <scenario_id>
+    And User Checks for the error message Company Name is required
+    And User enters exiting company name <scenario_id>
+    And User Checks for the error message Company name already exists
+    And User enters contact_person <scenario_id>
+    And User Checks for the error message Contact person Name is required
+    And User enters E-mail Id <scenario_id>
+    And User Checks for the error message Email Id is required
+    And User enters invalid E-mail Id <scenario_id>
+    And User Checks for the error message Invalid email id
+    And User enters exiting E-mail Id <scenario_id>
+    And User checks for the error message Email ID already exists
+    And User enters Login Name <scenario_id>
+    And User Checks for the error message Login name cannot be blank
+    And User enters exiting Login Name <scenario_id>
+    And User Checks the error message Login name already exists
+    And User enters mobile_num <scenario_id>
+    And User Checks for the error message Invalid mobile number
+    And User selects company country <scenario_id>
+    And User checks for country displayed in text box <scenario_id>
+    And User selects company state <scenario_id>
+    And User checks for state displayed in text box <scenario_id>
+    And User selects company City <scenario_id>
+    And User checks for city displayed in text box <scenario_id>
+    And User enters null company zip <scenario_id>
+    And User checks for the error message Zip cannot be blank
+    And user enters company street <scenario_id>
+    And User checks for the error message street name cannot be empty
+    And User uploads a Identity proof photo <scenario_id>
+    Then User Checks the error message File size cannot be larger than 2MB
+    And kjbadkjbcskdbk
+    Then nlajbdkjbcb
+    Then alncjjdbcb
+    And abcjbakjcbdkb
 
-  
-      | From Value |  | To Value |
-      |          1 |  |        2 |
-
-  # ApplyDDCOnBasketPagePositiveTestcase02
-  Scenario: Apply DDC
-    Given a User in Search Result Page
-    When User clicks on Basket icon
-    Then User is redirected to My Basket page
-    And User clicks on navigation right
-    And User Selects a pink legend stone on Basket page
-    And User Click Apply DDC
-    And User selects time
-    And User Click Apply
-    And Message displayed Successfully stone added/updated to DDC list
-    And User Checks DDC icon turned green
-    And User Clicks DDC icon
-    And User see pop up menu for DDC
-    And User Checks the DDC time for the selected stone
-    And User Clicks on cross button
-
-  # UpdateDDCPositiveTestCase03
-  Scenario: Update DDC
-  Given a
-    When User clicks on Basket icon
-    Then User is redirected to My Basket page
-    And User clicks on navigation right
-    And User click DDC icon for stone on Basket page
-    And User Select different time
-    And User Click update
-    And Message displayed Successfully stone added/updated to DDC list
-
-  # RemoveDDCPositiveTestCase04
-  Scenario: Remove DDC
-  Given a
-    When User click DDC icon for stone on Basket page
-    And User Click Remove
-    Then Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  # ApplyDDCByClickingDDCIconPositiveTestCase05
-  Scenario: Apply DDC by clicking on DDC icon
-    Given a User in Basket Page
-    When User click DDC Icon to apply DDC
-    And User selects time
-    And User Click Apply
-    Then Message displayed Successfully stone added/updated to DDC list
-    And User Checks DDC icon turned green
-
-  # UpdateDDCPositiveTestCase06
-  Scenario: Update DDC
-  Given a
-    When User click DDC icon for stone on Basket page
-    And User Select different time
-    And User Click update
-    Then Message displayed Successfully stone added/updated to DDC list
-    When User Clicks DDC icon
-    And User see pop up menu for DDC
-    And User Checks the DDC time for the selected stone
-    And User Clicks on cross button
-
-  # RemoveDDCPositiveTestCase07
-  Scenario: Remove DDC
-  Given a
-    When User click DDC icon for stone on Basket page
-    And User Click Remove
-    Then Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  # ApplyDDCIconPositiveTestCase08
-  Scenario: Apply DDC by selecting a stone
-    Given a User in Basket Page
-    When User Click packet icon
-    Then User is redirected to Packet page
-    And User select packet name as ddc_packet
-    And User clicks on navigation right
-    And User Selects a pink legend stone on Packet Page
-    And User Click Apply DDC
-    And User selects time
-    And User Click Apply
-    And Message displayed Successfully stone added/updated to DDC list
-    And User Checks DDC icon turned green
-    And User Clicks DDC icon
-    And User is redirected to DDC Page
-    And User Checks the DDC time for the selected stone
-    And User Clicks on cross button
-
-  # UpdateDDCPositiveTestCase09
-  Scenario: Update DDC
-  Given a
-    When User click DDC icon for stone on Packet page
-    And User Select different time
-    And User Click update
-    Then Message displayed Successfully stone added/updated to DDC list
-
-  # RemoveDDCPositiveTestCase10
-  Scenario: Remove DDC
-  Given a
-    When User click DDC icon for stone on Packet page
-    And User Click Remove
-    Then Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  # ApplyDDCOnPacketPagePositiveTestCase11
-  Scenario: Apply DDC by clicking on DDC icon
-    Given a User in Packet page
-    When User click DDC Icon to apply DDC
-    And User selects time
-    And User Click Apply
-    And Message displayed Successfully stone added/updated to DDC list
-    And User Checks DDC icon turned green
-
-  # UpdateDDCPacketPagePositiveTestCase12
-  Scenario: Update DDC
-  Given a
-    When User click DDC icon for stone on Packet page
-    And User Select different time
-    And User Click update
-    Then Message displayed Successfully stone added/updated to DDC list
-    And User Clicks DDC icon
-    And User is redirected to DDC Page
-    And User Checks the DDC time for the selected stone
-
-  # RemoveDDCPacketPagePositiveTestCase13
-  Scenario: Remove DDC
-  Given a
-    When User Click on packet Icon
-    Then User select packet name as ddc_packet
-    And User clicks on navigation right
-    And User click DDC icon for stone on Packet page
-    And User Click Remove
-    And Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  # ApplyDDCOnSearchPagePositiveTestCase14
-  Scenario: Apply DDC by selecting a stone
-    Given a User in Packet Page
-    When User clicks on Search Icon
-    Then User is redirected to search page
-    And User enter carat values <From Value> <To Value>
-    And User clicks on carat add symbol
-    And User selects diamond shape as round
-    And clicks on Search
-    And User in Search Result
-    And User selects a Stone
-    And User Click Apply DDC
-    And User selects time
-    And User Click Apply
-    And Message displayed Successfully stone added/updated to DDC list
-    And User clicks on navigation right
-    And User Checks DDC icon turned green
-    And User Clicks DDC icon
-    And User see pop up menu for DDC
-    And User Checks the DDC time for the selected stone
-    And User Clicks on cross button
-
-  
-      | From Value |  | To Value |
-      |          1 |  |        2 |
-
-  # UpdateDDCOnSearchResultPagePositiveTestCase15
-  Scenario: Update DDC
-  Given a
-    When User click DDC icon for stone on Search page
-    And User Select different time
-    And User Click update
-    Then Message displayed Successfully stone added/updated to DDC list
-
-  # RemoveDDCOnSearchResultPagePositiveTestCase16
-  Scenario: Remove DDC
-  Given a
-    When User click DDC icon for stone on Search page
-    And User Click Remove
-    Then Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  # Search page Apply DDC by clicking DDC icon# 
-  Scenario: Apply DDC by clicking on DDC icon
-  Given a
-    When User Click Dashboard Icon
-    And User in dashboard page
-    And User clicks on Search Icon
-    Then User is redirected to search page
-    And User enter carat values <From Value> <To Value>
-    And User clicks on carat add symbol
-    And User selects diamond shape as round
-    And clicks on Search
-    And User in Search Result
-    And User clicks on navigation right
-    And User click DDC Icon to apply DDC
-    And User selects time
-    And User Click Apply
-    And Message displayed Successfully stone added/updated to DDC list
-    And User Checks DDC icon turned green
-
-  
-      | From Value |  | To Value |
-      |          1 |  |        2 |
-# 
-  Scenario: Update DDC
-  Given a
-    When User click DDC icon for stone on Search page
-    And User Select different time
-    And User Click update
-    Then Message displayed Successfully stone added/updated to DDC list
-    And User Clicks DDC icon
-    And User is redirected to DDC Page
-    And User Checks the DDC time for the selected stone
-# 
-  Scenario: Remove DDC
-  Given a
-    When User clicks on Search Icon
-    Then User is redirected to search page
-    And User enter carat values <From Value> <To Value>
-    And User clicks on carat add symbol
-    And User selects diamond shape as round
-    And clicks on Search
-    And User in Search Result
-    And User clicks on navigation right
-    And User click DDC icon for stone on Search page
-    And User Click Remove
-    And Message display successfully stone removed from the DDC stone list
-    And User Check that DDC Icon Turns from Green to Grey
-
-  
-      | From Value |  | To Value |
-      |          1 |  |        2 |
-# 
-  Scenario: Log out user at the end of test
-  Given a
-    When User clicks on log out icon and agrees to prompt
-    Then User should be redirected to login page
+    Examples: 
+      | scenario_id               |
+      | registration02_validation |
